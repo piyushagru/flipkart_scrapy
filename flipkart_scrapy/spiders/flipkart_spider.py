@@ -5,10 +5,8 @@ from ..items import FlipkartScrapyItem
 class FlipkartSpiderSpider(scrapy.Spider):
     name = 'flipkart_spider'
     page_number=2
-    allowed_domains = ['flipkart.com']
-
     start_urls = [
-            'https://www.flipkart.com/mobiles/pr?sid=tyy%2C4io&otracker=clp_metro_expandable_1_3.metroExpandable.METRO_EXPANDABLE_Mi_mobile-phones-store_ZHYC957RFL_wp3&fm=neo%2Fmerchandising&iid=M_8cc5a5f4-0d90-4876-a2eb-676e5b27f8aa_2.ZHYC957RFL&ppt=clp&ppn=mobile-phones-store'
+            'https://www.flipkart.com/mobiles/'+'pr?sid=tyy%2C4io&otracker=clp_metro_expandable_1_3.metroExpandable.METRO_EXPANDABLE_Mi_mobile-phones-store_ZHYC957RFL_wp3&fm=neo%2Fmerchandising&iid=M_8cc5a5f4-0d90-4876-a2eb-676e5b27f8aa_2.ZHYC957RFL&ppt=clp&ppn=mobile-phones-store&page1%2F=&page=1'
         ]
 
     def parse(self, response):
@@ -27,8 +25,11 @@ class FlipkartSpiderSpider(scrapy.Spider):
 
             yield items     
 
+        # next_page = response.css('._3fVaIS::attr(href)').get()
+        # if next_page is not None:
+        #         yield response.follow(next_page, callback = self.parse)
         next_page=[
-            'https://www.flipkart.com/mobiles/pr?sid=tyy%2C4io&otracker=clp_metro_expandable_1_3.metroExpandable.METRO_EXPANDABLE_Mi_mobile-phones-store_ZHYC957RFL_wp3&fm=neo%2Fmerchandising&iid=M_8cc5a5f4-0d90-4876-a2eb-676e5b27f8aa_2.ZHYC957RFL&ppt=clp&ppn=mobile-phones-store&page=' + str(FlipkartSpiderSpider.page_number) + ''
+              'https://www.flipkart.com/mobiles/'+'pr?sid=tyy%2C4io&otracker=clp_metro_expandable_1_3.metroExpandable.METRO_EXPANDABLE_Mi_mobile-phones-store_ZHYC957RFL_wp3&fm=neo%2Fmerchandising&iid=M_8cc5a5f4-0d90-4876-a2eb-676e5b27f8aa_2.ZHYC957RFL&ppt=clp&ppn=mobile-phones-store&page1%2F=&page='+str(FlipkartSpiderSpider.page_number)
         ]    
 
         if FlipkartSpiderSpider.page_number <= 10:

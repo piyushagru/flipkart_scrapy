@@ -13,4 +13,3 @@ class FlipkartScrapyItem(scrapy.Item):
     product_name = scrapy.Field()
     product_price = scrapy.Field()
     product_rating = scrapy.Field()
-    pass
