@@ -10,12 +10,15 @@ class FlipkartSpiderSpider(scrapy.Spider):
     def parse(self, response):
         items = FlipkartScrapyItem()
 
-        product_name=response.css('._3wU53n::text').extract()
-        product_price=response.css('._2rQ-NK::text').extract()
-        product_rating=response.css('._2_KrJI .hGSR34').css('::text').extract()
+        all_div_mobile=response.css('._1UoZlX')
         
-        items['product_name']=product_name
-        items['product_price']=product_price
-        items['product_rating']=product_rating
+        for mobile in all_div_mobile:
+            product_name=mobile.css('._3wU53n::text').extract()
+            product_price=mobile.css('._2rQ-NK::text').extract()
+            product_rating=mobile.css('._2_KrJI .hGSR34').css('::text').extract()
+        
+            items['product_name']=product_name
+            items['product_price']=product_price
+            items['product_rating']=product_rating
 
-        yield items   
+            yield items     
