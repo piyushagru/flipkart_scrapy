@@ -31,6 +31,6 @@ class FlipkartSpiderSpider(scrapy.Spider):
             'https://www.flipkart.com/mobiles/pr?sid=tyy%2C4io&otracker=clp_metro_expandable_1_3.metroExpandable.METRO_EXPANDABLE_Mi_mobile-phones-store_ZHYC957RFL_wp3&fm=neo%2Fmerchandising&iid=M_8cc5a5f4-0d90-4876-a2eb-676e5b27f8aa_2.ZHYC957RFL&ppt=clp&ppn=mobile-phones-store&page=' + str(FlipkartSpiderSpider.page_number) + ''
         ]    
 
-        if FlipkartSpiderSpider.page_number <= 10:
-            FlipkartSpiderSpider.page_number += 1
-            yield response.follow(next_page, callback = self.parse)
+        while FlipkartSpiderSpider.page_number <= 10:
+                FlipkartSpiderSpider.page_number += 1
+                yield response.follow(next_page, callback = self.parse)
